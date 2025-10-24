@@ -45,11 +45,15 @@ function Note({ note }) {
             className={`w-6 h-6 bg-cover bg-center bg-no-repeat hover:scale-110 transition-all duration-150 ${Theme === "light" ? "hover:drop-shadow-lg" : "hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"}`}
             style={{ backgroundImage: `url(${Theme==="light"?deleteicon:deletewhite})` }}
             onClick={() => {
-              setIsDeleting(true)
-              
-              setTimeout(() => {
-                dispatch({ type: "DELETE", payload: note.id });
-              }, 400);
+              if(confirm("Do you want to delete this note?")){
+
+                setIsDeleting(true)
+                
+                setTimeout(() => {
+                  dispatch({ type: "DELETE", payload: note.id });
+                }, 400);
+              }
+
 
             }}
           ></button>
