@@ -1,7 +1,8 @@
 import NotesList from "./components/NotesList";
 import { createContext, useEffect, useReducer, useState } from "react";
 import Header from "./components/Header";
-import AddButton from "./components/AddButton";
+import SearchButton from "./components/SearchButton";
+import SearchField from "./components/SearchField";
 
 export const NoteContext = createContext();
 
@@ -12,7 +13,7 @@ function reducer(state, action) {
         ...state,
         {
           id: Date.now(),
-          name:"",
+          name:action.payload,
           content: "",
           isfocused: false,
         },
@@ -36,17 +37,17 @@ function reducer(state, action) {
 
 const lightTheme = {
   lightTheme:
-    "w-full bg-amber-300 sm:text-left flex justify-between text-white text-4xl p-3 text-center",
+    " bg-amber-300",
 
   lightButton:
-    "w-16 h-16 bg-amber-300 text-white rounded-full text-4xl text-center absolute bottom-10 right-5 hover:bg-amber-400 hover:scale-110 hover:shadow-xl transition-all duration-300 cursor-pointer",
+    "bg-amber-300",
   lightBg: "bg-white",
 };
 const darkTheme = {
   darkTheme:
-    "w-full bg-slate-900  sm:text-left flex justify-between text-white text-4xl p-3 text-center",
+    "bg-slate-900 ",
   darkButton:
-    "w-16 h-16 bg-slate-900 text-white rounded-full text-4xl text-center absolute bottom-10 right-5 hover:bg-slate-800 hover:scale-110 hover:shadow-xl transition-all duration-300 cursor-pointer",
+    "bg-slate-900 hover:bg-slate-800 hover:scale-110 hover:shadow-xl hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]",
   darkBg:"bg-black"
 };
 function App() {
@@ -66,8 +67,9 @@ function App() {
     }
   });
 
-  const [Animating, setAnimating] = useState(false)
-
+  // const [Animating, setAnimating] = useState(false)
+  const [Isvisible, setIsvisible] = useState(false)
+const [Input, setInput] = useState("")
 
   useEffect(() => {
     localStorage.setItem("allNotes", JSON.stringify(state));
@@ -81,7 +83,7 @@ useEffect(()=>{
   return (
     <>
       <NoteContext.Provider
-        value={[state, dispatch, Theme, setTheme, lightTheme, darkTheme]}
+        value={[state, dispatch, Theme, setTheme, lightTheme, darkTheme ,Isvisible,setIsvisible,Input,setInput]}
       >
         <div
           id="notes-container"
@@ -91,7 +93,8 @@ useEffect(()=>{
         >
           <Header />
           <NotesList />
-        <AddButton />
+          <SearchField/>
+        <SearchButton />
         </div>
       </NoteContext.Provider>
     </>
