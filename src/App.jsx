@@ -1,7 +1,7 @@
 import NotesList from "./components/NotesList";
 import { createContext, useEffect, useReducer, useState } from "react";
 import Header from "./components/Header";
-import SearchButton from "./components/SearchButton";
+import AddButton from "./components/AddButton";
 import SearchField from "./components/SearchField";
 
 export const NoteContext = createContext();
@@ -69,7 +69,7 @@ function App() {
 
   // const [Animating, setAnimating] = useState(false)
   const [Isvisible, setIsvisible] = useState(false)
-const [Input, setInput] = useState("")
+const [Input, setInput] = useState("") //this is for search 
 
   useEffect(() => {
     localStorage.setItem("allNotes", JSON.stringify(state));
@@ -94,7 +94,7 @@ useEffect(()=>{
           <Header />
           <NotesList />
           <SearchField/>
-        <SearchButton />
+        <AddButton />
         </div>
       </NoteContext.Provider>
     </>

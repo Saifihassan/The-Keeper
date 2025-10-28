@@ -6,11 +6,15 @@ import Header from "./Header";
 
 function Note({ note }) {
   const [isDeleting, setIsDeleting] = useState(false)
-  const [state, dispatch,Theme,setTheme,lightTheme,darkTheme] = useContext(NoteContext);
+  const [state, dispatch, Theme, setTheme, lightTheme, darkTheme, Isvisible, setIsvisible, Input, setInput] = useContext(NoteContext);
 
-
-
-  
+  const handleNoteClick = () => {
+    if (Isvisible) {
+      setInput(""); // Clear search
+      setIsvisible(false); // Hide search
+    }
+    dispatch({ type: "EDIT", payload: note.id });
+  };
   return (
     <>
       <div
@@ -30,7 +34,7 @@ function Note({ note }) {
           }})}
           
           placeholder="Enter your secret..."
-          onFocus={() => dispatch({ type: "EDIT", payload: note.id })}
+          onFocus={handleNoteClick}
           onBlur={() => dispatch({ type: "EDIT", payload: note.id })}
           className={`border rounded-2xl m-4 bg-white overflow-hidden resize-none p-4 transition-all duration-300 ${
             note.isfocused ? `flex-1 m-0 rounded-none` : ""

@@ -51,7 +51,7 @@ function Header() {
       <div className="flex gap-8 ">
         {
           Isvisible?
-          <input type="text" value={Input} onChange={(e)=>{setInput(e.target.value)}} ref={inpRef} className="border search-animation text-xs rounded-3xl px-4 py-3 bg-white text-black" placeholder="Search your secret..."/>:""
+          <input type="text" value={Input} onChange={(e)=>{setInput(e.target.value)}} ref={inpRef} className="border search-animation text-xs rounded-3xl px-4 py-3 bg-white text-black" placeholder="Search your secret..."/>:""//the search input 
         }
       <button onClick={()=>{
         setIsvisible(!Isvisible)

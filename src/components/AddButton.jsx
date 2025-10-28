@@ -1,7 +1,7 @@
 import { useContext,useEffect,useRef,useState } from 'react'
 import { NoteContext } from '../App'
 import searchicon from "../assets/search.svg"
-function SearchButton() {
+function AddButton() {
     const [state,dispatch,Theme,setTheme,lightTheme,darkTheme]  = useContext(NoteContext)
     function addnote(){
       let name = prompt("Name your Secret..")
@@ -33,4 +33,4 @@ function SearchButton() {
   )
 }
 
-export default SearchButton
+export default AddButton
