@@ -13,7 +13,7 @@ function reducer(state, action) {
         ...state,
         {
           id: Date.now(),
-          name:action.payload,
+          name: action.payload,
           content: "",
           isfocused: false,
         },
@@ -30,25 +30,28 @@ function reducer(state, action) {
       return state.map((t) =>
         t.id === action.payload ? { ...t, isfocused: !t.isfocused } : t
       );
+    case "UPDATE_TITLE":
+      return state.map((t) =>
+        t.id === action.payload.id
+          ? { ...t, name: action.payload.name }
+          : t
+      );
     default:
       return state;
   }
 }
 
 const lightTheme = {
-  lightTheme:
-    " bg-amber-300",
+  lightTheme: " bg-amber-300",
 
-  lightButton:
-    "bg-amber-300",
+  lightButton: "bg-amber-300",
   lightBg: "bg-white",
 };
 const darkTheme = {
-  darkTheme:
-    "bg-slate-900 ",
+  darkTheme: "bg-slate-900 ",
   darkButton:
     "bg-slate-900 hover:bg-slate-800 hover:scale-110 hover:shadow-xl hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]",
-  darkBg:"bg-black"
+  darkBg: "bg-black",
 };
 function App() {
   const [state, dispatch] = useReducer(reducer, [], () => {
@@ -58,48 +61,65 @@ function App() {
       return [];
     }
   });
-  const [Theme, setTheme] = useState(()=>{
-    if(localStorage.getItem("theme")){
-      return localStorage.getItem("theme")
-    }
-    else{
-      return "light"
+  const [Theme, setTheme] = useState(() => {
+    if (localStorage.getItem("theme")) {
+      return localStorage.getItem("theme");
+    } else {
+      return "light";
     }
   });
 
   // const [Animating, setAnimating] = useState(false)
-  const [Isvisible, setIsvisible] = useState(false)
-const [Input, setInput] = useState("") //this is for search 
+  const [Isvisible, setIsvisible] = useState(false);
+  const [Input, setInput] = useState(""); //this is for search
+
+  const [Title, setTitle] = useState("");
 
   useEffect(() => {
     localStorage.setItem("allNotes", JSON.stringify(state));
   }, [state]);
 
-useEffect(()=>{
-  Theme === "light"?localStorage.setItem("theme","light"):localStorage.setItem("theme","dark")
-},[Theme])
+  useEffect(() => {
+    Theme === "light"
+      ? localStorage.setItem("theme", "light")
+      : localStorage.setItem("theme", "dark");
+  }, [Theme]);
 
-useEffect(()=>{
-  const webicon = document.getElementById("Web-icon")
-  Theme==="light"?webicon.href='/keeper-icon.svg':webicon.href='/keeper-icon-dark.svg'
-},[Theme])
-  
+  useEffect(() => {
+    const webicon = document.getElementById("Web-icon");
+    Theme === "light"
+      ? (webicon.href = "/keeper-icon.svg")
+      : (webicon.href = "/keeper-icon-dark.svg");
+  }, [Theme]);
 
   return (
     <>
       <NoteContext.Provider
-        value={[state, dispatch, Theme, setTheme, lightTheme, darkTheme ,Isvisible,setIsvisible,Input,setInput]}
+        value={[
+          state,
+          dispatch,
+          Theme,
+          setTheme,
+          lightTheme,
+          darkTheme,
+          Isvisible,
+          setIsvisible,
+          Input,
+          setInput,
+          Title,
+          setTitle,
+        ]}
       >
         <div
           id="notes-container"
           className={`w-full   ${
-            Theme === "light" ? lightTheme.lightBg :darkTheme.darkBg
+            Theme === "light" ? lightTheme.lightBg : darkTheme.darkBg
           } min-h-screen`}
         >
           <Header />
           <NotesList />
-          <SearchField/>
-        <AddButton />
+          <SearchField />
+          <AddButton />
         </div>
       </NoteContext.Provider>
     </>

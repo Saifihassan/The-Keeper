@@ -2,13 +2,10 @@ import { useContext,useEffect,useRef,useState } from 'react'
 import { NoteContext } from '../App'
 import searchicon from "../assets/search.svg"
 function AddButton() {
-    const [state,dispatch,Theme,setTheme,lightTheme,darkTheme]  = useContext(NoteContext)
+    const [state,dispatch,Theme,setTheme,lightTheme,darkTheme,Title]  = useContext(NoteContext)
     function addnote(){
-      let name = prompt("Name your Secret..")
-      if(!name){
-        return
-      }
-      dispatch({type:"ADD",payload:name})
+
+      dispatch({type:"ADD",})
     }
     // useEffect(()=>{
     //   if(Isvisible&&inpRef.current){

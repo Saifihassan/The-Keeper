@@ -7,12 +7,19 @@ import Header from "./Header";
 function Note({ note }) {
   const [isDeleting, setIsDeleting] = useState(false)
   const [state, dispatch, Theme, setTheme, lightTheme, darkTheme, Isvisible, setIsvisible, Input, setInput] = useContext(NoteContext);
-
+  const [isTitle, setisTitle] = useState(false)
+  const titleRef = useRef()
+  useEffect(()=>{
+    if(titleRef.current){
+      titleRef.current.focus()
+    }
+  },[])
   const handleNoteClick = () => {
     if (Isvisible) {
       setInput(""); // Clear search
       setIsvisible(false); // Hide search
     }
+    // setisTitle(true)
     dispatch({ type: "EDIT", payload: note.id });
   };
   return (
@@ -23,7 +30,26 @@ function Note({ note }) {
         }`}
       >
         {note.isfocused && <Header />}
-        {note.isfocused && <button className={`text-right mx-6 mt-2 ${Theme==="light"? "text-black":"text-white"}`}>X</button>}
+        {note.isfocused && <button onClick={()=>{setisTitle(false)}} className={`text-right mx-6 mt-2 ${Theme==="light"? "text-black":"text-white"}` }>X</button>}
+
+        {/* this wraps the title and the note */}
+        <div className={`bg-white flex flex-col m-3 ${note.isfocused?"flex-1 rounded-none":""} overflow-hidden border rounded-2xl`}> 
+  
+          <input 
+            type="text" 
+            value={note.name} 
+            onChange={(e)=>dispatch({
+              type:"UPDATE_TITLE", 
+              payload:{
+                id:note.id, 
+                name:e.target.value
+              }
+            })} 
+            ref={titleRef}
+            className={`bg-white p-4 outline-none`} 
+            placeholder="Name your Secret"
+          />
+        
         <textarea
           name="textarea"
           id=""
@@ -33,14 +59,15 @@ function Note({ note }) {
             content:e.target.value
           }})}
           
-          placeholder="Enter your secret..."
+          placeholder="Whisper your secret..."
           onFocus={handleNoteClick}
           onBlur={() => dispatch({ type: "EDIT", payload: note.id })}
-          className={`border rounded-2xl m-4 bg-white overflow-hidden resize-none p-4 transition-all duration-300 ${
-            note.isfocused ? `flex-1 m-0 rounded-none` : ""
+          className={`bg-white overflow-hidden resize-none p-4 transition-all duration-300 ${
+            note.isfocused ? `flex-1 m-0 h-3/4 rounded-none` : ""
           }`}
         >
         </textarea>
+        </div>
         <div
           id="button-container"
           className="flex gap-2 px-4 pb-2 justify-center"
