@@ -78,6 +78,11 @@ const [Input, setInput] = useState("") //this is for search
 useEffect(()=>{
   Theme === "light"?localStorage.setItem("theme","light"):localStorage.setItem("theme","dark")
 },[Theme])
+
+useEffect(()=>{
+  const webicon = document.getElementById("Web-icon")
+  Theme==="light"?webicon.href='/keeper-icon.svg':webicon.href='/keeper-icon-dark.svg'
+},[Theme])
   
 
   return (
