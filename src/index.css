@@ -1,0 +1,86 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Atma:wght@300;400;500;600;700&family=Barriecito&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Open+Sans:wght@300&family=Raleway:wght@300&display=swap');
+*{
+    box-sizing: border-box;
+    font-family: 'Atma', cursive;
+}
+
+
+@keyframes SearchAnimation {
+  0%{
+    transform: scaleX(0);
+    transform-origin: right;
+  }
+  20%{
+    transform: scaleX(-0.33);
+  }
+  40%{
+    transform: scaleX(-0.58);
+  }
+  60%{
+    transform: scaleX(-0.75);
+  }
+  80%{
+    transform: scaleX(-0.92);
+  }
+  100%{
+    transform: scaleX(-1);
+  }
+}
+
+@keyframes letterspace{
+  0%{
+    letter-spacing: 0px;
+  }
+  25%{
+    letter-spacing: 2px;
+  }
+  50%{
+    letter-spacing: 5px;
+  }
+  75%{
+    letter-spacing: 7px;
+  }
+  100%{
+    letter-spacing: 0px;
+  }
+}
+
+@keyframes slidetoleft {
+    from{
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to{
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+
+@keyframes slideout {
+    from{
+        opacity: 1;
+        transform: translateY(0px);
+    }
+    to{
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    
+}
+
+.note-animations{
+    animation: slidetoleft 0.4s ease-in
+}
+.note-delete-animation{
+
+    animation: slideout 0.4s ease-out;
+}
+
+.heading-animation{
+    animation: letterspace 0.4s ease-out;
+}
+
+.search-animation{
+  animation: SearchAnimation 0.4s ease-out;
+}
