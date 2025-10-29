@@ -2,11 +2,7 @@ import { useContext,useEffect,useRef,useState } from 'react'
 import { NoteContext } from '../App'
 import searchicon from "../assets/search.svg"
 function AddButton() {
-<<<<<<< HEAD
     const [state,dispatch,Theme,setTheme,lightTheme,darkTheme,Title] = useContext(NoteContext)
-=======
-    const [state,dispatch,Theme,setTheme,lightTheme,darkTheme,Title]  = useContext(NoteContext)
->>>>>>> ced143f7de21753a8f0d1f7b6fa213dd24ff378d
     function addnote(){
 
       dispatch({type:"ADD",})

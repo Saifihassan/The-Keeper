@@ -5,14 +5,8 @@ import hamburger from "../assets/hamburger.svg";
 import searchicon from "../assets/search.svg";
 import { NoteContext } from "../App";
 function Header() {
-<<<<<<< HEAD
   const [state, dispatch, Theme, setTheme, lightTheme, darkTheme, Isvisible, setIsvisible,Input ,setInput,SearchMode,setSearchMode] =
     useContext(NoteContext);
-=======
-  const [state, dispatch, Theme, setTheme, lightTheme, darkTheme, Isvisible, setIsvisible,Input ,setInput] =
-    useContext(NoteContext);
-    const [isTitle,setIsTitle] = useState(true)
->>>>>>> ced143f7de21753a8f0d1f7b6fa213dd24ff378d
     let inpRef = useRef()
     useEffect(()=>{
       if(Isvisible && inpRef.current){
@@ -45,11 +39,7 @@ function Header() {
           Theme === "light"
             ? "hover:drop-shadow-lg"
             : "hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"
-<<<<<<< HEAD
         } ${Isvisible ? "hidden md:block" : ""}`}
-=======
-        } ${isTitle ? "" : "hidden md:block"}`}
->>>>>>> ced143f7de21753a8f0d1f7b6fa213dd24ff378d
       >
         The Keeper
       </p>
@@ -64,11 +54,7 @@ function Header() {
         }
       <button onClick={()=>{
         setIsvisible(!Isvisible)
-<<<<<<< HEAD
         setSearchMode(!SearchMode)
-=======
-        setIsTitle(!isTitle)
->>>>>>> ced143f7de21753a8f0d1f7b6fa213dd24ff378d
       }} className={`hover:shadow-xl transition-all duration-150 text-2xl ${
           Theme === "light"
             ? "hover:drop-shadow-lg"

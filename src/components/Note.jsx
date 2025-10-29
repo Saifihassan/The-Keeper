@@ -1,6 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import deleteicon from "../assets/delete.png";
-<<<<<<< HEAD
 import deletewhite from "../assets/delete-white.png";
 import { NoteContext } from "../App";
 import Header from "./Header";
@@ -29,36 +28,15 @@ function Note({ note }) {
   const [isTitle, setisTitle] = useState(false);
 
   // Handle note click - clears search if active and opens note
-=======
-import deletewhite from '../assets/delete-white.png'
-import { NoteContext } from "../App";
-import Header from "./Header";
-
-function Note({ note }) {
-  const [isDeleting, setIsDeleting] = useState(false)
-  const [state, dispatch, Theme, setTheme, lightTheme, darkTheme, Isvisible, setIsvisible, Input, setInput] = useContext(NoteContext);
-  const [isTitle, setisTitle] = useState(false)
-  const titleRef = useRef()
-  useEffect(()=>{
-    if(titleRef.current){
-      titleRef.current.focus()
-    }
-  },[])
->>>>>>> ced143f7de21753a8f0d1f7b6fa213dd24ff378d
   const handleNoteClick = () => {
     if (Isvisible) {
       setInput(""); // Clear search
       setIsvisible(false); // Hide search
     }
-<<<<<<< HEAD
-=======
-    // setisTitle(true)
->>>>>>> ced143f7de21753a8f0d1f7b6fa213dd24ff378d
     dispatch({ type: "EDIT", payload: note.id });
   };
   return (
     <>
-<<<<<<< HEAD
       {/* Main note container - shows animation and fullscreen when focused */}
       <div
         className={`flex flex-col transition-all note-animations ${
@@ -172,73 +150,10 @@ function Note({ note }) {
               if (confirm("Do you want to delete this note?")) {
                 setIsDeleting(true);
 
-=======
-      <div
-        className={`flex flex-col transition-all note-animations ${isDeleting ? "note-delete-animation" : ""} duration-300 ${
-          note.isfocused ? `fixed inset-0 z-50  ${Theme==="light"?lightTheme.whiteBg:darkTheme.darkBg}` : ""
-        }`}
-      >
-        {note.isfocused && <Header />}
-        {note.isfocused && <button onClick={()=>{setisTitle(false)}} className={`text-right mx-6 mt-2 ${Theme==="light"? "text-black":"text-white"}` }>X</button>}
-
-        {/* this wraps the title and the note */}
-        <div className={`bg-white flex flex-col m-3 ${note.isfocused?"flex-1 rounded-none":""} overflow-hidden border rounded-2xl`}> 
-  
-          <input 
-            type="text" 
-            value={note.name} 
-            onChange={(e)=>dispatch({
-              type:"UPDATE_TITLE", 
-              payload:{
-                id:note.id, 
-                name:e.target.value
-              }
-            })} 
-            ref={titleRef}
-            className={`bg-white p-4 outline-none`} 
-            placeholder="Name your Secret"
-          />
-        
-        <textarea
-          name="textarea"
-          id=""
-          value={note.content}
-          onChange={(e)=>dispatch({type:"CHANGE" , payload:{
-            id:note.id,
-            content:e.target.value
-          }})}
-          
-          placeholder="Whisper your secret..."
-          onFocus={handleNoteClick}
-          onBlur={() => dispatch({ type: "EDIT", payload: note.id })}
-          className={`bg-white overflow-hidden resize-none p-4 transition-all duration-300 ${
-            note.isfocused ? `flex-1 m-0 h-3/4 rounded-none` : ""
-          }`}
-        >
-        </textarea>
-        </div>
-        <div
-          id="button-container"
-          className="flex gap-2 px-4 pb-2 justify-center"
-        >
-          <button
-            className={`w-6 h-6 bg-cover bg-center bg-no-repeat hover:scale-110 transition-all duration-150 ${Theme === "light" ? "hover:drop-shadow-lg" : "hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"}`}
-            style={{ backgroundImage: `url(${Theme==="light"?deleteicon:deletewhite})` }}
-            onClick={() => {
-              if(confirm("Do you want to delete this note?")){
-
-                setIsDeleting(true)
-                
->>>>>>> ced143f7de21753a8f0d1f7b6fa213dd24ff378d
                 setTimeout(() => {
                   dispatch({ type: "DELETE", payload: note.id });
                 }, 400);
               }
-<<<<<<< HEAD
-=======
-
-
->>>>>>> ced143f7de21753a8f0d1f7b6fa213dd24ff378d
             }}
           ></button>
         </div>
