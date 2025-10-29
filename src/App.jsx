@@ -13,10 +13,16 @@ function reducer(state, action) {
         ...state,
         {
           id: Date.now(),
+<<<<<<< HEAD
           name: "",
           content: "",
           isfocused: false,
           isPinned :false
+=======
+          name: action.payload,
+          content: "",
+          isfocused: false,
+>>>>>>> ced143f7de21753a8f0d1f7b6fa213dd24ff378d
         },
       ];
     case "DELETE":
@@ -31,8 +37,11 @@ function reducer(state, action) {
       return state.map((t) =>
         t.id === action.payload ? { ...t, isfocused: !t.isfocused } : t
       );
+<<<<<<< HEAD
     case "PIN":
       return state.map(t=>t.id === action.payload?{...t,isPinned:!t.isPinned}:t)
+=======
+>>>>>>> ced143f7de21753a8f0d1f7b6fa213dd24ff378d
     case "UPDATE_TITLE":
       return state.map((t) =>
         t.id === action.payload.id
@@ -75,7 +84,11 @@ function App() {
   // const [Animating, setAnimating] = useState(false)
   const [Isvisible, setIsvisible] = useState(false);
   const [Input, setInput] = useState(""); //this is for search
+<<<<<<< HEAD
 const [SearchMode, setSearchMode] = useState(false)
+=======
+
+>>>>>>> ced143f7de21753a8f0d1f7b6fa213dd24ff378d
   const [Title, setTitle] = useState("");
 
   useEffect(() => {
@@ -110,7 +123,11 @@ const [SearchMode, setSearchMode] = useState(false)
           Input,
           setInput,
           Title,
+<<<<<<< HEAD
           setTitle
+=======
+          setTitle,
+>>>>>>> ced143f7de21753a8f0d1f7b6fa213dd24ff378d
         ]}
       >
         <div
