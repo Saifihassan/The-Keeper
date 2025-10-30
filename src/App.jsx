@@ -3,6 +3,7 @@ import { createContext, useEffect, useReducer, useState } from "react";
 import Header from "./components/Header";
 import AddButton from "./components/AddButton";
 import SearchField from "./components/SearchField";
+import HamburgerMenu from "./components/HamburgerMenu";
 
 export const NoteContext = createContext();
 
@@ -77,7 +78,7 @@ function App() {
   const [Input, setInput] = useState(""); //this is for search
 // const [SearchMode, setSearchMode] = useState(false)
   const [Title, setTitle] = useState("");
-
+  const [MenuVisible, setMenuVisible] = useState(false)
   useEffect(() => {
     localStorage.setItem("allNotes", JSON.stringify(state));
   }, [state]);
@@ -110,7 +111,9 @@ function App() {
           Input,
           setInput,
           Title,
-          setTitle
+          setTitle,
+          MenuVisible,
+          setMenuVisible
         ]}
       >
         <div
@@ -120,6 +123,7 @@ function App() {
           } min-h-screen`}
         >
           <Header />
+          <HamburgerMenu/>
           <NotesList />
           <SearchField />
           <AddButton />

@@ -5,7 +5,7 @@ import hamburger from "../assets/hamburger.svg";
 import searchicon from "../assets/search.svg";
 import { NoteContext } from "../App";
 function Header() {
-  const [state, dispatch, Theme, setTheme, lightTheme, darkTheme, Isvisible, setIsvisible,Input ,setInput,SearchMode,setSearchMode] =
+  const [state, dispatch, Theme, setTheme, lightTheme, darkTheme, Isvisible, setIsvisible,Input ,setInput,SearchMode,setSearchMode,MenuVisible,setMenuVisible] =
     useContext(NoteContext);
     let inpRef = useRef()
     useEffect(()=>{
@@ -29,7 +29,7 @@ function Header() {
             : "hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"
         }`}
         onClick={()=>{
-          alert("This feature is under development and will be made available shortly")
+          setMenuVisible(true)
         }}
       >
         <img src={hamburger} alt="" />
