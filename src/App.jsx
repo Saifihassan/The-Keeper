@@ -75,7 +75,7 @@ function App() {
   // const [Animating, setAnimating] = useState(false)
   const [Isvisible, setIsvisible] = useState(false);
   const [Input, setInput] = useState(""); //this is for search
-const [SearchMode, setSearchMode] = useState(false)
+// const [SearchMode, setSearchMode] = useState(false)
   const [Title, setTitle] = useState("");
 
   useEffect(() => {

@@ -21,9 +21,7 @@ function NotesList() {
           ))
         ) : (
           <>
-            {/* {state.filter(n=>n.isPinned).map((note)=>(
-              <Note key={note.id} note={note}/>
-            ))} */}
+            
             {state.map((note)=>(
               !note.isPinned?
               <Note key={note.id} note={note}/>:""
