@@ -2,8 +2,11 @@ import NotesList from "./components/NotesList";
 import { createContext, useEffect, useReducer, useState } from "react";
 import Header from "./components/Header";
 import AddButton from "./components/AddButton";
-import SearchField from "./components/SearchField";
+// import SearchField from "./components/SearchField";
 import HamburgerMenu from "./components/HamburgerMenu";
+import { createBrowserRouter, Outlet } from "react-router-dom";
+import Archieved from "./Archieved";
+import Trash from "./Trash";
 
 export const NoteContext = createContext();
 
@@ -57,6 +60,7 @@ const darkTheme = {
     "bg-slate-900 hover:bg-slate-800 hover:scale-110 hover:shadow-xl hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]",
   darkBg: "bg-black",
 };
+
 function App() {
   const [state, dispatch] = useReducer(reducer, [], () => {
     if (JSON.parse(localStorage.getItem("allNotes"))) {
@@ -79,6 +83,7 @@ function App() {
 // const [SearchMode, setSearchMode] = useState(false)
   const [Title, setTitle] = useState("");
   const [MenuVisible, setMenuVisible] = useState(false)
+  
   useEffect(() => {
     localStorage.setItem("allNotes", JSON.stringify(state));
   }, [state]);
@@ -97,40 +102,58 @@ function App() {
   }, [Theme]);
 
   return (
-    <>
-      <NoteContext.Provider
-        value={[
-          state,
-          dispatch,
-          Theme,
-          setTheme,
-          lightTheme,
-          darkTheme,
-          Isvisible,
-          setIsvisible,
-          Input,
-          setInput,
-          Title,
-          setTitle,
-          MenuVisible,
-          setMenuVisible
-        ]}
+    <NoteContext.Provider
+      value={[
+        state,
+        dispatch,
+        Theme,
+        setTheme,
+        lightTheme,
+        darkTheme,
+        Isvisible,
+        setIsvisible,
+        Input,
+        setInput,
+        Title,
+        setTitle,
+        MenuVisible,
+        setMenuVisible
+      ]}
+    >
+      <div
+        id="notes-container"
+        className={`w-full ${
+          Theme === "light" ? lightTheme.lightBg : darkTheme.darkBg
+        } min-h-screen`}
       >
-        <div
-          id="notes-container"
-          className={`w-full   ${
-            Theme === "light" ? lightTheme.lightBg : darkTheme.darkBg
-          } min-h-screen`}
-        >
-          <Header />
-          <HamburgerMenu/>
-          <NotesList />
-          <SearchField />
-          <AddButton />
-        </div>
-      </NoteContext.Provider>
-    </>
+        <Header />
+        <HamburgerMenu/>
+        <Outlet />
+        <AddButton />
+      </div>
+    </NoteContext.Provider>
   );
 }
+
+export const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        index: true,
+        element: <NotesList />
+      },
+      {
+        path: "archieved",
+        element: <Archieved />
+      },
+      {
+        path: "trash",
+        element: <Trash />
+      }
+    ]
+  }
+]);
 
 export default App;
