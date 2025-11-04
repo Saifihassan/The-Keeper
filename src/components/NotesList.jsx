@@ -12,17 +12,17 @@ function NotesList() {
       
   
       {
-        state.length === 0 ? (
+        state.filter(n => !n.isArchived&&!n.isDeleted).length === 0 ? (
           <p className="fixed top-1/2 left-1/2 z-40 transform -translate-x-1/2 -translate-y-1/2 text-2xl text-gray-500">Click the + button to create a note</p>
         ) : Isvisible ? (
           
-          state.filter(t=>t.name.toLowerCase().includes(Input.toLowerCase())).map((note)=>(
+          state.filter(t=>t.name.toLowerCase().includes(Input.toLowerCase()) && !t.isArchived && !t.isDeleted).map((note)=>(
             <Note key={note.id} note={note}/>
           ))
         ) : (
           <>
             
-            {state.map((note)=>(
+            {state.filter(n => !n.isArchived&&!n.isDeleted).map((note)=>(
               !note.isPinned?
               <Note key={note.id} note={note}/>:""
             ))}

@@ -5,7 +5,11 @@ import { NoteContext } from "../App";
 import Header from "./Header";
 import pinLight from "../assets/pin-white.svg";
 import pinDark from "../assets/pin-black.svg";
-
+import Archiveblack from "../assets/archive-black.svg";
+import ArchiveWhite from "../assets/archive-white.svg";
+import deleteForever from "../assets/delete-forever.svg";
+import restoreBlack from "../assets/restore-bkack.svg";
+import restoreWhite from "../assets/restore-white.svg";
 function Note({ note }) {
   // Local state for delete animation
   const [isDeleting, setIsDeleting] = useState(false);
@@ -115,47 +119,93 @@ function Note({ note }) {
         {/* Button Container - holds action buttons */}
         <div
           id="button-container"
-          className="flex gap-2 px-4 pb-2 justify-center items-center"
+          className="flex gap-2 h-1 mt-3 justify-center items-center"
         >
-          {/* Delete Button and Pin Button */}
-          <button
-            onClick={() => {
-              dispatch({ type: "PIN", payload:note.id});
-            }}
-            className={`w-6 h-6 hover:scale-110 transition-all duration-150 ${
-              Theme === "light"
-                ? "hover:drop-shadow-lg"
-                : "hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"
-            }`}
-          >
-            <img
-              src={Theme === "light" ? pinDark : pinLight}
-              width={30}
-              alt=""
-            />
-          </button>
+          {/* Conditional Rendering: Shows different buttons based on note state */}
+          {/* If note is deleted (in trash), show Delete Forever button */}
+          {/* Otherwise, show Archive, Pin, and Delete (move to trash) buttons */}
 
-          <button
-            className={`w-5 h-5 bg-cover bg-center bg-no-repeat hover:scale-110 transition-all duration-150 ${
-              Theme === "light"
-                ? "hover:drop-shadow-lg"
-                : "hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"
-            }`}
-            style={{
-              backgroundImage: `url(${
-                Theme === "light" ? deleteicon : deletewhite
-              })`,
-            }}
-            onClick={() => {
-              if (confirm("Do you want to delete this note?")) {
-                setIsDeleting(true);
+          {note.isDeleted ? (
+            // DELETE FOREVER BUTTON - Only visible when note is in trash (isDeleted = true)
+            <>
+              <button
+                onClick={() => {
+                  // Confirm before permanently deleting
+                  if (confirm("Do you want to delete this note forever?")) {
+                    dispatch({ type: "DELETE_FOREVER", payload: note.id });
+                  }
+                }}
+              >
+                <img src={deleteForever} alt="" />
+              </button>
 
-                setTimeout(() => {
-                  dispatch({ type: "DELETE", payload: note.id });
-                }, 400);
-              }
-            }}
-          ></button>
+              <button onClick={()=>{dispatch({type:"RESTORE" , payload:note.id})}}>
+                <img src={Theme === "light" ? restoreBlack:restoreWhite} width={30} alt="" />
+              </button>
+            </>
+          ) : (
+            // NORMAL CONTROL BUTTONS - Visible when note is NOT deleted (isDeleted = false)
+            <>
+              {/* ARCHIVE BUTTON - Toggles isArchived property */}
+              <button
+                onClick={() => {
+                  dispatch({ type: "ARCHIVE", payload: note.id });
+                }}
+                className={`w-6 h-6 hover:scale-110 transition-all duration-150 ${
+                  Theme === "light"
+                    ? "hover:drop-shadow-lg"
+                    : "hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"
+                }`}
+              >
+                <img
+                  src={Theme === "light" ? Archiveblack : ArchiveWhite}
+                  width={30}
+                  alt=""
+                />
+              </button>
+
+              {/* PIN BUTTON - Toggles isPinned property */}
+              <button
+                onClick={() => {
+                  dispatch({ type: "PIN", payload: note.id });
+                }}
+                className={`w-6 h-6 hover:scale-110 transition-all duration-150 ${
+                  Theme === "light"
+                    ? "hover:drop-shadow-lg"
+                    : "hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"
+                }`}
+              >
+                <img
+                  src={Theme === "light" ? pinDark : pinLight}
+                  width={30}
+                  alt=""
+                />
+              </button>
+
+              {/* DELETE BUTTON - Moves note to trash (sets isDeleted = true) */}
+              <button
+                className={`w-5 h-5 bg-cover bg-center bg-no-repeat hover:scale-110 transition-all duration-150 ${
+                  Theme === "light"
+                    ? "hover:drop-shadow-lg"
+                    : "hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"
+                }`}
+                style={{
+                  backgroundImage: `url(${
+                    Theme === "light" ? deleteicon : deletewhite
+                  })`,
+                }}
+                onClick={() => {
+                  // Trigger delete animation first
+                  setIsDeleting(true);
+
+                  // After animation completes (400ms), dispatch DELETE action
+                  setTimeout(() => {
+                    dispatch({ type: "DELETE", payload: note.id });
+                  }, 400);
+                }}
+              ></button>
+            </>
+          )}
         </div>
       </div>
     </>

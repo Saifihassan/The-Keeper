@@ -26,7 +26,7 @@ function HamburgerMenu() {
     setTimeout(() => {
       setMenuVisible(false);
       setIsClosing(false);
-    }, 300); // Match animation duration
+    }, 300);
   };
 
   return (
@@ -41,9 +41,9 @@ function HamburgerMenu() {
           <div className={`h-screen ${isClosing ? 'menu-slide-out' : 'menu-slide-in'} z-50 ${Theme==="light"?lightTheme.lightTheme:darkTheme.darkTheme} text-white w-1/3 sm:w-1/5 absolute top-0 `}>
           <button onClick={handleClose} className="absolute z-50 m-5 top-0 right-0 text-white font-bold text-xl">X</button>
             <ul className="flex flex-col items-center justify-center h-full gap-10 mt- relative text-2xl">
-              <li className="hover:bg-white hover:text-black w-full text-center py-3 transition-all duration-300"><Link to="/">Notes</Link></li>
-              <li className="hover:bg-white hover:text-black w-full text-center py-3 transition-all duration-300"><Link to="/archieved">Archived</Link></li>
-              <li className="hover:bg-white hover:text-black w-full text-center py-3 transition-all duration-300"><Link to="/trash">Trash</Link></li>
+              <li onClick={handleClose} className="hover:bg-white hover:text-black w-full text-center py-3 transition-all duration-300"><Link to="/">Notes</Link></li>
+              <li onClick={handleClose} className="hover:bg-white hover:text-black w-full text-center py-3 transition-all duration-300"><Link to="/archieved">Archived</Link></li>
+              <li onClick={handleClose} className="hover:bg-white hover:text-black w-full text-center py-3 transition-all duration-300"><Link to="/trash">Trash</Link></li>
             </ul>
           </div>
         </>

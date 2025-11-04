@@ -1,12 +1,12 @@
 import NotesList from "./components/NotesList";
-import { createContext, useEffect, useReducer, useState } from "react";
+import { act, createContext, useEffect, useReducer, useState } from "react";
 import Header from "./components/Header";
 import AddButton from "./components/AddButton";
 // import SearchField from "./components/SearchField";
 import HamburgerMenu from "./components/HamburgerMenu";
 import { createBrowserRouter, Outlet } from "react-router-dom";
-import Archieved from "./Archieved";
-import Trash from "./Trash";
+import Archieved from "./components/Archieved";
+import Trash from "./components/Trash";
 
 export const NoteContext = createContext();
 
@@ -20,11 +20,19 @@ function reducer(state, action) {
           name: "",
           content: "",
           isfocused: false,
-          isPinned :false
+          isPinned :false,
+          isArchived: false,
+          isDeleted: false
         },
       ];
+    case "ARCHIVE":
+      return state.map((t)=>t.id===action.payload?{...t, isArchived: !t.isArchived}:t)
     case "DELETE":
-      return state.filter((t) => t.id !== action.payload);
+      return state.map(n=> n.id === action.payload?{...n , isDeleted:!n.isDeleted}:n)
+    case "DELETE_FOREVER":
+      return state.filter(n=>n.id!==action.payload)
+    case "RESTORE" :
+      return state.map(n => n.id ===action.payload?{...n, isDeleted:!n.isDeleted}:n)
     case "CHANGE":
       return state.map((t) =>
         t.id === action.payload.id

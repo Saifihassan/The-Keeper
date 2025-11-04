@@ -5,7 +5,7 @@ import Note from "./Note"
 function PinnedNotes() {
   const [state, dispatch, Theme, setTheme, lightTheme, darkTheme, Isvisible, setIsvisible, Input, setInput, Title, setTitle] = useContext(NoteContext)
   
-  const pinnedNotes = state.filter(n => n.isPinned)
+  const pinnedNotes = state.filter(n => n.isPinned && !n.isArchived)
   
   return (
     <>
