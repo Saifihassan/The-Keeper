@@ -43,7 +43,7 @@ function Note({ note }) {
     <>
       {/* Main note container - shows animation and fullscreen when focused */}
       <div
-        className={`flex flex-col transition-all note-animations ${
+        className={`flex flex-col mt-2 transition-all note-animations ${
           isDeleting ? "note-delete-animation" : ""
         } duration-300 ${
           note.isfocused
@@ -119,7 +119,7 @@ function Note({ note }) {
         {/* Button Container - holds action buttons */}
         <div
           id="button-container"
-          className="flex gap-2 h-1 mt-3 justify-center items-center"
+          className="flex gap-2 mb-4 h-1 mt-3 justify-center items-center"
         >
           {/* Conditional Rendering: Shows different buttons based on note state */}
           {/* If note is deleted (in trash), show Delete Forever button */}
