@@ -7,7 +7,7 @@ function NoteList() {
 
   return (
     notes.length > 0 ? (
-      <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5 py-5 px-4'>
+      <div className='w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5 py-5 px-4'>
         {notes.map((note) => (
           <Note key={note._id} note={note} />
         ))}

@@ -33,9 +33,11 @@ function Home() {
   }, [dispatch, navigate])
 
   return (
-    <div>
+    <div className='w-full h-screen flex flex-col'>
       <Header />
-      <NoteList />
+      <div className='flex-1 overflow-auto'>
+        <NoteList />
+      </div>
       <AddButton />
     </div>
   )
