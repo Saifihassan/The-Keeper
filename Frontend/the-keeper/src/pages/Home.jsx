@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { setNotes } from '../redux/slices/notesSlice'
@@ -9,6 +9,7 @@ import NoteList from '../components/NoteList.jsx'
 function Home() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const [searchQuery, setSearchQuery] = useState('')
 
   useEffect(() => {
     async function fetchNotes() {
@@ -34,9 +35,9 @@ function Home() {
 
   return (
     <div className='w-full h-screen flex flex-col'>
-      <Header />
+      <Header onSearchChange={setSearchQuery} />
       <div className='flex-1 overflow-auto'>
-        <NoteList />
+        <NoteList searchQuery={searchQuery} />
       </div>
       <AddButton />
     </div>

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 function Login() {
   const navigate = useNavigate()
@@ -36,7 +36,7 @@ function Login() {
       }
       
       console.log('Success:', data)
-      navigate('/')
+      navigate('/home')
     } catch (error) {
       console.error('Error:', error.message)
     }
@@ -72,6 +72,9 @@ function Login() {
             Login
           </button>
         </form>
+        <p className='text-center mt-4 text-gray-600'>
+          Don't have an account? <Link to='/signup' className='text-amber-600 hover:text-amber-800 font-semibold'>Sign up</Link>
+        </p>
       </div>
     </div>
   )
